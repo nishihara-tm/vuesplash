@@ -28,10 +28,10 @@ class LoginApiTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function should_return_user(){
+    public function test_return_user(){
       $response = $this->json('POST', route('login'), [
         'email' => $this->user->email,
-        'password' => 'secret'
+        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
       ]);
 
       $response->assertStatus(200)->assertJson(['name' => $this->user->name]);
