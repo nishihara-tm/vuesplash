@@ -16,7 +16,6 @@
 import { OK } from '../util'
 import Photo from '../components/Photo.vue'
 import PhotoList from '../components/Pagination.vue'
-import Pagination from '../components/Pagination.vue'
 
 export default {
   components: {
@@ -54,4 +53,3 @@ export default {
   }
 }
 </script>
-

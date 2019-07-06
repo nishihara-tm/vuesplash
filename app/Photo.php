@@ -11,6 +11,8 @@ class Photo extends Model
     'url',
   ];
 
+  protected $perPage = 15;
+
   const ID_LENGTH = 12;
 
   public function owner() {
