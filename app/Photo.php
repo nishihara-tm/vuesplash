@@ -11,12 +11,20 @@ class Photo extends Model
     'url',
   ];
 
+  protected $visible = [
+      'id', 'owner', 'url', 'comments',
+  ];
+
   protected $perPage = 15;
 
   const ID_LENGTH = 12;
 
   public function owner() {
     return $this->belongsTo('App\User', 'user_id', 'id', 'users');
+  }
+
+  public function comments() {
+    return $this->hasMany('App\Comment')->orderBy('id', 'desc');
   }
 
   public function __construct(array $attributes = [] ){
