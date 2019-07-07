@@ -8,6 +8,8 @@ import SystemError from './pages/errors/System.vue'
 
 import PhotoDetail from './pages/PhotoDetail.vue'
 
+import NotFound from './pages/errors/NotFound.vue'
+
 import store from './store'
 
 // VueRouterプラグインを使用する
@@ -43,6 +45,10 @@ const routes = [
   {
     path: '/500',
     component: SystemError
+  },
+  {
+    path: '*',
+    component: NotFound 
   }
 ]
 
