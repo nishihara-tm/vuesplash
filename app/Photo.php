@@ -8,11 +8,11 @@ class Photo extends Model
 {
   protected $keyType= 'string';
   protected $appends = [
-    'url',
+    'url', 'likes_count', 'liked_by_user'
   ];
 
   protected $visible = [
-      'id', 'owner', 'url', 'comments',
+      'id', 'owner', 'url', 'comments', 'likes_count', 'liked_by_user'
   ];
 
   protected $perPage = 15;
@@ -27,6 +27,11 @@ class Photo extends Model
     return $this->hasMany('App\Comment')->orderBy('id', 'desc');
   }
 
+  public function likes() {
+    return $this->belongsToMany('App\User', 'likes')->withTimestamps();
+  }
+
+
   public function __construct(array $attributes = [] ){
     parent::__construct($attributes);
 
@@ -37,6 +42,20 @@ class Photo extends Model
 
   public function setId(){
     $this->attributes['id'] = $this->getRandomId();
+  }
+
+  public function getLikesCountAttribute() {
+    return $this->likes->count();
+  }
+
+  public function getLikedByUserAttribute(){
+    if(\Auth::guest()){
+      return false;
+    }
+
+    return $this->likes->contains(function($user){
+      return $user->id === \Auth::user()->id; 
+    });
   }
 
   public function getUrlAttribute() {
